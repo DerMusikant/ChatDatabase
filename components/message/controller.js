@@ -1,3 +1,7 @@
+const store = require('./store')
+
+
+//Stores message on the database with extra info (Date, etc)
 const addMessage = (user, message) => {
   return new Promise((resolve, reject) => {
 
@@ -13,12 +17,21 @@ const addMessage = (user, message) => {
       date : new Date(),
     }
 
-    console.log(info)
+    store.add(info)
 
     resolve(info)
   })
 }
 
+
+
+const getMessages = () => {
+  return new Promise((resolve, reject) => {
+    resolve(store.list())
+  })
+}
+
 module.exports = {
   addMessage,
+  getMessages
 }

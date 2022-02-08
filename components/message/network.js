@@ -12,10 +12,15 @@ router.get('/', (req, res) => {
   if (req.query.error == 'ok'){
     response.error(req, res, 'Fake Error', 'Just an error simulation at message/network')
   }else{
-    response.success(req, res, 'Hello from /message')
+    controller.getMessages()
+    .then((list) => {
+      response.success(req, res, list)
+    })
   };
 })
 
+
+//Posts a message on the database (body.user and body.message are necessary on request)
 router.post('/', (req, res) => {
   if (req.query.error == 'ok'){
     response.error(req, res,'Fake error', 'Just an error simulation at message/network')
