@@ -8,23 +8,22 @@ response = require('../../network/response'),
 controller = require('./controller')
 
 
+//Recieves an array of messages (Can be filtered by user on query)
 router.get('/', (req, res) => {
-  if (req.query.error == 'ok'){
-    response.error(req, res, 'Fake Error', 'Just an error simulation at message/network')
-  }else{
-    controller.getMessages()
+  const filterMessages = req.query.user || null
+
+    controller.getMessages( filterMessages )
     .then((list) => {
       response.success(req, res, list)
+      })
+      .catch((e) => {
+        response.error(req, res, 'Internal Error', e)
+      })
     })
-  };
-})
 
 
-//Posts a message on the database (body.user and body.message are necessary on request)
+//Posts a message on the database (body.user and body.message are needed on request)
 router.post('/', (req, res) => {
-  if (req.query.error == 'ok'){
-    response.error(req, res,'Fake error', 'Just an error simulation at message/network')
-  }else{
     controller.addMessage(req.body.user, req.body.message)
     .then((data) => {
       response.success(req,res, data)
@@ -32,7 +31,27 @@ router.post('/', (req, res) => {
     .catch((e) => {
       response.error(req, res, e, 'Message controller error', 400)
     })
-  }
 })
+
+router.patch('/:id', (req, res) => {
+    controller.updateMessage(req.params.id, req.body.message)
+        .then((data) => {
+            response.success(req, res, data)
+        })
+        .catch(e => {
+            response.error(req, res, 'Internal error', e)
+        })
+})
+
+router.delete('/:id', (req, res) => {
+  controller.deleteMessage(req.params.id)
+  .then((data) => {
+    response.success(req,res, data)
+  })
+  .catch((e) => {
+    response.error(req, res, 'Internal error', e)
+  })
+})
+
 
 module.exports = router
