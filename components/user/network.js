@@ -22,4 +22,14 @@ router.post('/', (req, res) => {
 })
 
 
+router.get('/', (req, res) => {
+  controller.getUser(req.query.name).
+  then((data) => {
+    response.success(req, res, data)
+  })
+  .catch((e) => {
+    response.error(req, res, e, 'Error getting user', 404)
+  })
+})
+
 module.exports = router

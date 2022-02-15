@@ -8,14 +8,23 @@ const addMessage = (message) => {
   newMessage.save()
 }
 
-const getMessages = async (filterUser) => {
-  let filter = {}
-  if(filterUser){
-    filter.user = new RegExp(filterUser, "i") /* Mongo can recieve regular expressions on searches,
-                                                in this case, the flag "i" means "Case insensitive"
-                                                (Which also results on a partial match finder) */
-  }
-  return await Model.find(filter)
+const getMessages = (filterUser) => {
+  return new Promise( (resolve, reject) => {
+    let filter = {}
+    if(filterUser){
+      filter.user =  filterUser
+    }
+    Model.find(filter)
+    .populate('user', 'name')
+    .exec((error, populated) => {
+      if (error) {
+        reject(error)
+        return null
+      }
+      resolve(populated)
+    })
+    }
+  )
 }
 
 const updateText = async (id, message) => {

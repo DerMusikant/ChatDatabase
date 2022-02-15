@@ -19,7 +19,12 @@ const addUser = (name) => {
 }
 
 
+const getUser = (filter) => {
+    return store.get(filter)
+}
+
 
 module.exports = {
-  addUser
+  addUser,
+  getUser
 }

@@ -1,3 +1,5 @@
+//This code exports http responses for components' network
+
 exports.success = (req, res, data, status = 200) => {
   res.status(status).send({
     error: '',

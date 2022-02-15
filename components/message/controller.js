@@ -57,6 +57,11 @@ const deleteMessage = (id) => {
   })
 }
 
+
+/////////HELPER
+
+
+
 module.exports = {
   addMessage,
   getMessages,

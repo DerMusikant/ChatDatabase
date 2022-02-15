@@ -8,10 +8,9 @@ response = require('../../network/response'),
 controller = require('./controller')
 
 
-//Recieves an array of messages (Can be filtered by user on query)
+//Returns an array of messages (Can be filtered by userID on query)
 router.get('/', (req, res) => {
-  const filterMessages = req.query.user || null
-
+  const filterMessages = req.query.userID || null
     controller.getMessages( filterMessages )
     .then((list) => {
       response.success(req, res, list)
@@ -33,6 +32,8 @@ router.post('/', (req, res) => {
     })
 })
 
+
+//Modifies a msg's text (id is required as a parameter on url)
 router.patch('/:id', (req, res) => {
     controller.updateMessage(req.params.id, req.body.message)
         .then((data) => {
@@ -43,6 +44,7 @@ router.patch('/:id', (req, res) => {
         })
 })
 
+//Deletes a msg (Id required as a parameter)
 router.delete('/:id', (req, res) => {
   controller.deleteMessage(req.params.id)
   .then((data) => {
