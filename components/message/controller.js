@@ -2,15 +2,16 @@ const store = require('./store')
 
 
 //Stores message on the database with extra info (Date, etc)
-const addMessage = (user, message) => {
+const addMessage = (user, message, chat) => {
   return new Promise((resolve, reject) => {
-    if (!user || !message){
-      console.error('Message/controller no [user/message] found')
+    if (!user || !message || !chat){
+      console.error('Message/controller no [user/message/chat] found')
       return reject('Data error.')
     }
     const info = {
       user,
       message,
+      chat,
       date : new Date(),
     }
 
@@ -56,10 +57,6 @@ const deleteMessage = (id) => {
     })
   })
 }
-
-
-/////////HELPER
-
 
 
 module.exports = {

@@ -8,11 +8,11 @@ const addMessage = (message) => {
   newMessage.save()
 }
 
-const getMessages = (filterUser) => {
+const getMessages = (filterChat) => {
   return new Promise( (resolve, reject) => {
     let filter = {}
-    if(filterUser){
-      filter.user =  filterUser
+    if(filterChat){
+      filter.chat =  filterChat
     }
     Model.find(filter)
     .populate('user', 'name')
