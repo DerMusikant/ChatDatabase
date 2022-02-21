@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 
 
 
-//Deletes a msg (Id required as a parameter)
+//Deletes a chat (Id required as a parameter)
 router.delete('/:id', (req, res) => {
   controller.deleteChat(req.params.id)
   .then((data) => {

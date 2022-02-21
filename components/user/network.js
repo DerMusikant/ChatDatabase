@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
 })
 
 
+//Gets an array of users (Can be filtered by name on query)
 router.get('/', (req, res) => {
   controller.getUser(req.query.name).
   then((data) => {

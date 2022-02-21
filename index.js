@@ -7,7 +7,7 @@ const db = require('./database')
 // Good security practice
 require('dotenv').config()
 
-db(process.env.MSG_USER, process.env.MSG_PASSWORD, process.env.MSG_NAME)
+db(process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_NAME)
 
 //Actual code
 
