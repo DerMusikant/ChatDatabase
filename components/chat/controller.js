@@ -1,11 +1,12 @@
 const store = require('./store')
+const { userExists, isObjectId } = require('../Helper')
 
 
 //Stores message on the database with extra info (Date, etc)
 const addChat = (users, name) => {
   return new Promise((resolve, reject) => {
-    if (!users || !name){
-      console.error('Message/controller no [user/message/chat] found')
+    if (!users || !name || !Array.isArray(users)){
+      console.error('Chat/controller no [users/name] found')
       return reject('Data error.')
     }
     const info = {
@@ -14,16 +15,19 @@ const addChat = (users, name) => {
     }
 
     store.add(info)
-
-    resolve(info)
   })
 }
 
 
 
-const getChats = ( filterName ) => {
+const getChats = ( filterUser ) => {
   return new Promise((resolve, reject) => {
-    resolve(store.get(filterName))
+    if(filterUser && (!isObjectId(filterUser) || !userExists(filterUser))){
+      reject('Data error')
+      console.error('Incorrect userID on query')
+      return null
+    }
+    resolve(store.get(filterUser))
   })
 }
 

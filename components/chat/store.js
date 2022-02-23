@@ -12,7 +12,7 @@ const getChats = (filterChat) => {
   return new Promise( (resolve, reject) => {
     let filter = {}
     if(filterChat){
-      filter.chat =  filterChat
+      filter.users =  filterChat
     }
         Model.find(filter)
         .populate('users', 'name')

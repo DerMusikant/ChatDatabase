@@ -1,4 +1,6 @@
+const { Socket } = require('socket.io')
 const store = require('./store')
+const { socket } = require('../../socket')
 
 
 //Stores message on the database with extra info (Date, etc)
@@ -16,6 +18,8 @@ const addMessage = (user, message, chat) => {
     }
 
     store.add(info)
+
+    socket.io.emit('message', info)
 
     resolve(info)
   })

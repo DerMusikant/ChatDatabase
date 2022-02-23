@@ -8,15 +8,15 @@ response = require('../../network/response'),
 controller = require('./controller')
 
 
-//Returns an array of chats (Can be filtered by name on query)
+//Returns an array of chats (Can be filtered by userID on query)
 router.get('/', (req, res) => {
-  const filterName = req.query.name || null
-    controller.getChats( filterName )
+  const filterUser = req.query.userid || null
+    controller.getChats( filterUser )
     .then((list) => {
       response.success(req, res, list)
       })
       .catch((e) => {
-        response.error(req, res, 'Internal Error', e)
+        response.error(req, res, e, 'Chat getter error')
       })
     })
 
@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
       response.success(req,res, data)
     })
     .catch((e) => {
-      response.error(req, res, e, 'Message controller error', 400)
+      response.error(req, res, e, 'Chat post error', 400)
     })
 })
 
@@ -41,7 +41,7 @@ router.delete('/:id', (req, res) => {
     response.success(req,res, data)
   })
   .catch((e) => {
-    response.error(req, res, 'Internal error', e)
+    response.error(req, res, e, 'Chat deleting error')
   })
 })
 
