@@ -1,5 +1,4 @@
 const store = require('./store')
-const { userExists, isObjectId } = require('../Helper')
 
 
 //Stores message on the database with extra info (Date, etc)
@@ -10,11 +9,12 @@ const addChat = (users, name) => {
       return reject('Data error.')
     }
     const info = {
-      users,
-      name
+      name,
+      users
     }
 
     store.add(info)
+    resolve(info)
   })
 }
 
@@ -22,11 +22,6 @@ const addChat = (users, name) => {
 
 const getChats = ( filterUser ) => {
   return new Promise((resolve, reject) => {
-    if(filterUser && (!isObjectId(filterUser) || !userExists(filterUser))){
-      reject('Data error')
-      console.error('Incorrect userID on query')
-      return null
-    }
     resolve(store.get(filterUser))
   })
 }

@@ -8,9 +8,9 @@ response = require('../../network/response'),
 controller = require('./controller')
 
 
-//Returns an array of chats (Can be filtered by userID on query)
+//Returns an array of chats (Can be filtered by uID on query)
 router.get('/', (req, res) => {
-  const filterUser = req.query.userid || null
+  const filterUser = req.query.uID || null
     controller.getChats( filterUser )
     .then((list) => {
       response.success(req, res, list)

@@ -8,9 +8,9 @@ response = require('../../network/response'),
 controller = require('./controller')
 
 
-//Returns an array of messages (Can be filtered by chatID on query)
+//Returns an array of messages (Can be filtered by cID on query)
 router.get('/', (req, res) => {
-  const filterMessages = req.query.chatID || null
+  const filterMessages = req.query.cID || null
     controller.getMessages( filterMessages )
     .then((list) => {
       response.success(req, res, list)
